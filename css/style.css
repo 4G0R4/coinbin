@@ -3,8 +3,8 @@ html, body {
 }
 
 body {
-	background-image: url("../images/background.jpg");
-	background-color:#ffffff;
+	background-image: url("../images/background_i.jpg");
+	background-color:#121214;
 }
 
 .displaynone {
@@ -22,7 +22,8 @@ body {
 
 #footer {
 	height: 60px;
-	background-color: #f5f5f5;
+	/* background-color: #f5f5f5; *//
+	background-color: #0a0a0a;
 	padding-top: 20px;
 }
 
@@ -34,32 +35,41 @@ body {
         display: block;
 }
 
+
+/* Light theme */
 #fees .txi_regular {
-	background: #d3d3d3;
+	/* background: #d3d3d3; */
+	background: #2c2c2c;
 }
 
 #fees .txi_segwit {
-	background: #bae1ff;
+	/* background: #bae1ff;*/
+	background: #451e00;
 }
 
 #fees .txi_multisig {
-	background: #baffc9;
+	/* background: #baffc9;*/
+	background: #450036;
 }
 
 #fees .txi_hodl {
-	background: #ffdfba;
+	/* background: #ffdfba;*/
+	background: #002045;
 }
 
 #fees .txi_unknown {
-	background: #ffb3ba;
+	/* background: #ffb3ba;*/
+	background: #004c45;
 }
 
 #fees .txo_p2pkh {
-	background: #E679C8;
+	/* background: #E679C8;*/
+	background: #198637;
 }
 
 #fees .txo_p2sh {
-	background: #FAFE92;
+	/* background: #FAFE92;*/
+	background: #05016d;
 }
 
 #fees .txinputs {
@@ -83,7 +93,8 @@ body {
 	opacity: 0.7;
 	-webkit-transition: .2s;
 	transition: opacity .2s;
-	border: 2px dotted #c3c3c3;
+	border: 2px dotted #3c3c3c;
+	/* border: 2px dotted #c3c3c3; */
 }
 
 #fees .sliderbtn {
