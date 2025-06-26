@@ -1,13 +1,13 @@
-coinbin
+AGORA.btc.pub
 =======
 
-A Open Source Browser Based Bitcoin Wallet. Version 1.7 beta by OutCast3k
+A Open Source Browser Based Bitcoin Wallet. Version 2.1 beta by 4G0R4
 
-Live version available at http://coinb.in/ or coinbin3ravkwb24f7rmxx6w3snkjw45jhs5lxbh3yfeg3vpt6janwqd.onion
+Live version available at [https://4g0r4.github.io/coinbin/test.html](https://4g0r4.github.io/coinbin/test.html)
 
-Github URL: https://github.com/OutCast3k/coinbin/
+Github URL: https://github.com/4G0R4/coinbin/
 
-Coinb.in supports a number of key features such as: 
+AGORA.btc.pub supports a number of key features such as: 
 
 - Offline Compressed & uncompressed Address creation.
 - Offline Multisignature Address creation.
@@ -30,7 +30,8 @@ Coinb.in supports a number of key features such as:
 - Replace by fee (RBF) Support.
 - Segwit Support.
 - Bech32 address support.
-- Fee calculator - https://coinb.in/#fees
+- Fee calculator - [https://https://4g0r4.github.io/coinbin/#fees](https://4g0r4.github.io/coinbin/test.html)
+- Test [https://4g0r4.github.io/coinbin/test.html](https://4g0r4.github.io/coinbin/test.html))
 - Transaction rebuild support for RBF and double spending.
 
 Donate to 33tht1bKDgZVxb39MnZsWa8oxHXHvUYE4G to see more development!
