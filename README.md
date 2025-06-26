@@ -3,7 +3,7 @@ AGORA.btc.pub
 
 A Open Source Browser Based Bitcoin Wallet. Version 2.1 beta by 4G0R4
 
-Live version available at [https://4g0r4.github.io/coinbin/test.html](https://4g0r4.github.io/coinbin/test.html)
+Live version available at [http://AGORA.btc.pub](http://AGORA.btc.pub) or [https://4g0r4.github.io/coinbin](https://4g0r4.github.io/coinbin)
 
 Github URL: https://github.com/4G0R4/coinbin/
 
