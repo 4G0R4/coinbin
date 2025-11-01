@@ -933,10 +933,19 @@ $(document).ready(function() {
 			listUnspentBlockchair(redeem, "litecoin");
 		} else if(host=='blockchair_dogecoin'){
 			listUnspentBlockchair(redeem, "dogecoin");
+		
+		} else if(host=='mempool_testnet'){
+		    listUnspentMempool(redeem, "testnet");
+		} else if(host=='mempool_testnet4'){
+		    listUnspentMempool(redeem, "testnet4");
+		} else if(host=='mempool_signet'){
+		    listUnspentMempool(redeem, "signet");
 		} else {
-			listUnspentDefault(redeem);
+		    listUnspentDefault(redeem);
 		}
+	
 
+		
 		if($("#redeemFromStatus").hasClass("hidden")) {
 			// An ethical dilemma: Should we automatically set nLockTime?
 			if(redeem.from == 'redeemScript' && redeem.type == "hodl__") {
@@ -1197,7 +1206,45 @@ $(document).ready(function() {
 		});
 	}
 
-
+	/* retrieve unspent data from mempool.space */
+	function listUnspentMempool(redeem, network){
+	    var baseUrl = "https://mempool.space";
+	    if(network !== "mainnet" && network !== ""){
+	        baseUrl = "https://mempool.space/" + network;
+	    }
+	    
+	    $.ajax({
+	        type: "GET",
+	        url: baseUrl + "/api/address/" + redeem.addr + "/utxo",
+	        dataType: "json",
+	        error: function(data) {
+	            $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs!');
+	        },
+	        success: function(data) {
+	            if(Array.isArray(data) && data.length >= 0){
+	                $("#redeemFromAddress").removeClass('hidden').html('<span class="glyphicon glyphicon-info-sign"></span> Retrieved unspent inputs from address <a href="'+explorer_addr+redeem.addr+'" target="_blank">'+redeem.addr+'</a>');
+	                for(var i = 0; i < data.length; i++){
+	                    var o = data[i];
+	                    // Mempool.space returns txid in correct format (not reversed)
+	                    var tx = o.txid;
+	                    if(tx.match(/^[a-f0-9]+$/)){
+	                        var n = o.vout;
+	                        var script = (redeem.redeemscript==true) ? redeem.decodedRs : '';
+	                        var amount = ((o.value.toString()*1)/100000000).toFixed(8);
+	                        addOutput(tx, n, script, amount);
+	                    }
+	                }
+	            } else {
+	                $("#redeemFromStatus").removeClass('hidden').html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected error, unable to retrieve unspent outputs.');
+	            }
+	        },
+	        complete: function(data, status) {
+	            $("#redeemFromBtn").html("Load").attr('disabled',false);
+	            totalInputAmount();
+	        }
+	    });
+	}
+	
 	/* retrieve unspent data from chainso */
 	function listUnspentChainso(redeem, network){
 		$.ajax ({
@@ -1402,7 +1449,43 @@ $(document).ready(function() {
                 });
 	}
 
-
+	/* broadcast transaction via mempool.space */
+	function rawSubmitMempool(thisbtn, network){
+	    $(thisbtn).val('Please wait, loading...').attr('disabled',true);
+	    
+	    var baseUrl = "https://mempool.space";
+	    if(network !== "" && network !== "mainnet"){
+	        baseUrl = "https://mempool.space/" + network;
+	    }
+	    
+	    $.ajax({
+	        type: "POST",
+	        url: baseUrl + "/api/tx",
+	        data: $("#rawTransaction").val(),
+	        contentType: "text/plain",
+	        dataType: "text",
+	        error: function(data) {
+	            var errorMsg = data.responseText || 'Failed to broadcast transaction';
+	            $("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden")
+	                .html('<span class="glyphicon glyphicon-exclamation-sign"></span> ' + errorMsg);
+	        },
+	        success: function(data) {
+	            // Mempool.space returns the txid as plain text on success
+	            if(data && data.length === 64 && data.match(/^[a-f0-9]+$/)){
+	                var explorerUrl = baseUrl + "/tx/" + data;
+	                $("#rawTransactionStatus").addClass('alert-success').removeClass('alert-danger').removeClass("hidden")
+	                    .html(' TXID: ' + data + '<br> <a href="' + explorerUrl + '" target="_blank">View on Mempool.space</a>');
+	            } else {
+	                $("#rawTransactionStatus").addClass('alert-danger').removeClass('alert-success').removeClass("hidden")
+	                    .html('<span class="glyphicon glyphicon-exclamation-sign"></span> Unexpected response from server');
+	            }
+	        },
+	        complete: function(data, status) {
+	            $("#rawTransactionStatus").fadeOut().fadeIn();
+	            $(thisbtn).val('Submit').attr('disabled',false);
+	        }
+	    });
+	}
 
 
 	/* verify script code */
@@ -1917,13 +2000,31 @@ $(document).ready(function() {
 	function configureBroadcast(){
 		var host = $("#coinjs_broadcast option:selected").val();
 
-        // api:             blockcypher     blockchair      chain.so
-        // network name     "btc"           "bitcoin"       "BTC"
-        // network name     "ltc"           "litecoin"      "LTC"
-        // network name     "doge"          "dogecoin"      "DOGE"
+        // api:             blockcypher     blockchair      chain.so      mempool.space
+        // network name     "btc"           "bitcoin"       "BTC"		  "testnet"
+        // network name     "ltc"           "litecoin"      "LTC"		  "testnet4"
+        // network name     "doge"          "dogecoin"      "DOGE"		  "signet"
 
+		
 		$("#rawSubmitBtn").unbind("");
-		if(host=="chain.so_bitcoinmainnet"){
+
+	    if(host=="mempool_mainnet"){
+	        $("#rawSubmitBtn").click(function(){
+	            rawSubmitMempool(this, "");
+	        });
+	    } else if(host=="mempool_testnet"){
+	        $("#rawSubmitBtn").click(function(){
+	            rawSubmitMempool(this, "testnet");
+	        });
+	    } else if(host=="mempool_testnet4"){
+	        $("#rawSubmitBtn").click(function(){
+	            rawSubmitMempool(this, "testnet4");
+	        });
+	    } else if(host=="mempool_signet"){
+	        $("#rawSubmitBtn").click(function(){
+	            rawSubmitMempool(this, "signet");
+	        });
+	    } else if(host=="chain.so_bitcoinmainnet"){
 			$("#rawSubmitBtn").click(function(){
 				rawSubmitChainso(this, "BTC");
 			});
