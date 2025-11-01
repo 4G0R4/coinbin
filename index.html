@@ -1383,13 +1383,16 @@
 								<b>Network</b>: <br>
 								<p class="text-muted">Select which network you'd like to use for key pair generation.</p>
 								<select class="form-control" id="coinjs_coin">
-									<option value="bitcoin_mainnet" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;coinb.in;coinb.in">Bitcoin (mainnet)</option>
+									<option value="bitcoin_mainnet" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;coinb.in;coinb.in">Bitcoin (mainnet - coinb.in)</option>
+								    <option value="mempool_mainnet" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;mempool_mainnet;mempool_mainnet">Bitcoin (mainnet - mempool.space)</option>
+							
 									<!--option value="litecoin_mainnet" rel="0x30;0xb0;0x32;0x019da462;0x019d9cfe;blockcypher_litecoin;blockcypher_litecoin">Litecoin (mainnet)</option>
 									<option value="dogecoin_mainnet" rel="0x1e;0x9e;0x16;0x0827421e;0x089944e4;blockcypher_dogecoin;blockcypher_dogecoin">Dogecoin (mainnet)</option>
 									<option value="shadowcash_mainnet" rel="0x3f;0xbf;0x7d;0xee80286a;0xee8031e8;false;false">ShadowCash (mainnet)</option-->
-									<option value="bitcoin_testnet" rel="0x6f;0xef;0xc4;0x043587cf;0x04358394;mempool.space/testnet;mempool.space/testnet">Bitcoin (testnet3)</option>
-									<option value="bitcoin_testnet" rel="0x6f;0xef;0xc4;0x043587cf;0x04358394;mempool.space/testnet4;mempool.space/testnet4">Bitcoin (testnet4)</option>
-									<option value="bitcoin_testnet" rel="0x6f;0xef;0xc4;0x043587cf;0x04358394;mempool.space/signet;mempool.space/signet">Bitcoin (Signet)</option>
+									<option value="mempool_testnet" rel="0x6f;0xef;0xc4;0x043587cf;0x04358394;mempool_testnet;mempool_testnet">Bitcoin (testnet3)</option>
+									<option value="mempool_testnet4" rel="0x6f;0xef;0xc4;0x043587cf;0x04358394;mempool_testnet4;mempool_testnet4">Bitcoin (testnet4)</option>
+									<option value="mempool_signet" rel="0x6f;0xef;0xc4;0x043587cf;0x04358394;mempool_signet;mempool_signet">Bitcoin (Signet)</option>
+									
 									<option value="custom" rel="0x00;0x80;0x05;0x488b21e;0x488ade4;false;false">Custom</option>
 								</select>
 							</div>
@@ -1442,6 +1445,10 @@
 								<p class="text-muted">Select the network you wish to broadcast the transaction via</p>
 								<select class="form-control" id="coinjs_broadcast">
 									<option value="coinb.in">coinb.in (Bitcoin mainnet)</option>
+									<option value="mempool_mainnet"> Mempool.space (Bitcoin mainnet)</option>
+									<option value="mempool_testnet"> Mempool.space (Bitcoin Testnet)</option>
+									<option value="mempool_testnet4"> Mempool.space (Bitcoin Testnet4)</option>
+									<option value="mempool_signet"> Mempool.space (Bitcoin Signet)</option>
 									<option value="blockcypher_bitcoinmainnet"> Blockcypher.com (Bitcoin mainnet)</option>
 									<!--option value="blockcypher_litecoin"> Blockcypher.com (Litecoin)</option>
 									<option value="blockcypher_dogecoin"> Blockcypher.com (Dogecoin)</option-->
@@ -1463,6 +1470,10 @@
 								<p class="text-muted">Select the network you wish to retreive your unspent outputs from</p>
 								<select class="form-control" id="coinjs_utxo">
 									<option value="coinb.in">coinb.in (Bitcoin mainnet)</option>
+									<option value="mempool_mainnet"> Mempool.space (Bitcoin mainnet)</option>
+									<option value="mempool_testnet"> Mempool.space (Bitcoin Testnet)</option>
+									<option value="mempool_testnet4"> Mempool.space (Bitcoin Testnet4)</option>
+									<option value="mempool_signet"> Mempool.space (Bitcoin Signet)</option>
 									<option value="blockcypher_bitcoinmainnet"> Blockcypher.com (Bitcoin mainnet)</option>
 									<!--option value="blockcypher_litecoin"> Blockcypher.com (Litecoin)</option>
 									<option value="blockcypher_dogecoin"> Blockcypher.com (Dogecoin)</option-->
